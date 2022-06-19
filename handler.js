@@ -16,40 +16,72 @@ module.exports.weather = async (event, context) => {
     
     console.log("event: ", event);
     console.log("context: ", context);
+
+    try {
+        
+        console.log("MomgoDB Connecting...");
+        await connect();
+        mongoose.connection.on("open", () => {
+            console.log("MomgoDB Connected...");
+        });
+        mongoose.connection.on("error", () => {
+            console.error("Couldn't Connected to MomgoDB...");
+
+            const response = {
+                statusCode: 500,
+                body: JSON.stringify({
+                        message: "Unable to Connect to MongoDB",
+                        error: error
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
+
+        });
+
+        const weathers = [];
+        JSON.parse(event.body).forEach(element => {
+            weathers.push(new WeatherSchema(element));
+        });
+
+        return WeatherSchema.insertMany(weathers
+        ).then((docs) => {
+            console.log(docs.length, "Inserted");
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify({
+                        message: 'Weathers Data Inserted',
+                        docs: docs
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
     
-    console.log("MomgoDB Connecting...");
-    await connect();
-    console.log("MomgoDB Connected...");
+        }).catch((error) => {
+            console.error("Unable to Insert, Error: ", error);
+            const response = {
+                statusCode: 500,
+                body: JSON.stringify({
+                        message: "Unable to Insert Weather Data",
+                        error: error
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
+        });
 
-    const weathers = [];
-    JSON.parse(event.body).forEach(element => {
-        const a = new WeatherSchema(element);
-        console.log("typeof object: ", typeof a);
-        console.log("typeof object: ", a instanceof WeatherSchema);
-        weathers.push(a);
-    });
-
-    return WeatherSchema.insertMany(weathers
-    ).then((docs) => {
-        console.log(docs.length, "Inserted");
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify({
-                    message: 'Weathers Data Inserted',
-                    docs: docs
-                },
-                null,
-                4
-            ),
-        };
-        return response;
-
-    }).catch((error) => {
-        console.error("Unable to Insert, Error: ", error);
+    } catch(error) {
+        console.error("Error: ", error);
         const response = {
             statusCode: 500,
             body: JSON.stringify({
-                    message: "Unable to Insert Weather Data",
+                    message: "Error Occured",
                     error: error
                 },
                 null,
@@ -57,7 +89,8 @@ module.exports.weather = async (event, context) => {
             ),
         };
         return response;
-    });
+    }
+
 
 };
 
