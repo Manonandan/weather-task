@@ -67,13 +67,19 @@ provider:
 #    - include-me-dir/**
 
 functions:
-    weather:
-        handler: handler.weather
-
+    InsertWeathers:
+        handler: handler.InsertWeathers
         events:
             - http:
                 path: weathers
                 method: POST
+    GetWeathers:
+        handler: handler.GetWeathers
+        events:
+            - http:
+                path: weathers
+                method: GET
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
