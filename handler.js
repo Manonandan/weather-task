@@ -12,7 +12,7 @@ function connect() {
     });
 }
 
-module.exports.weather = async (event, context) => {
+module.exports.InsertWeathers = async (event, context) => {
     
     console.log("event: ", event);
     console.log("context: ", context);
@@ -95,3 +95,78 @@ module.exports.weather = async (event, context) => {
 };
 
 
+module.exports.GetWeathers = async (event, context) => {
+    
+    console.log("event: ", event);
+    console.log("context: ", context);
+
+    try {
+        
+        console.log("MomgoDB Connecting...");
+        await connect();
+        mongoose.connection.on("open", () => {
+            console.log("MomgoDB Connected...");
+        });
+        mongoose.connection.on("error", () => {
+            console.error("Couldn't Connected to MomgoDB...");
+
+            const response = {
+                statusCode: 500,
+                body: JSON.stringify({
+                        message: "Unable to Connect to MongoDB",
+                        error: error
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
+
+        });
+
+        return WeatherSchema.find(
+        ).then((docs) => {
+            console.log(docs.length, "Read");
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify({
+                        weathers: docs
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
+    
+        }).catch((error) => {
+            console.error("Unable to Read, Error: ", error);
+            const response = {
+                statusCode: 500,
+                body: JSON.stringify({
+                        message: "Unable to Read Weather Data",
+                        error: error
+                    },
+                    null,
+                    4
+                ),
+            };
+            return response;
+        });
+
+    } catch(error) {
+        console.error("Error: ", error);
+        const response = {
+            statusCode: 500,
+            body: JSON.stringify({
+                    message: "Error Occured",
+                    error: error
+                },
+                null,
+                4
+            ),
+        };
+        return response;
+    }
+
+
+};
