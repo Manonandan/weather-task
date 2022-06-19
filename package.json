@@ -1,0 +1,22 @@
+{
+  "name": "bewgle-hiring-task",
+  "version": "1.0.0",
+  "description": "Bewgle Hiring Task",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manonandan/bewgle-hiring-task.git"
+  },
+  "author": "Manonandan S K",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manonandan/bewgle-hiring-task/issues"
+  },
+  "homepage": "https://github.com/Manonandan/bewgle-hiring-task#readme",
+  "dependencies": {
+    "mongoose": "^6.4.0"
+  }
+}
