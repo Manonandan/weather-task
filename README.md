@@ -1,4 +1,4 @@
-# bewgle-hiring-task
+# weather-task
 
 ### Task:
 - Create an AWS Lambda using a serverless framework.

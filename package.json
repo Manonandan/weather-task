@@ -1,21 +1,21 @@
 {
-  "name": "bewgle-hiring-task",
+  "name": "weather-task",
   "version": "1.0.0",
-  "description": "Bewgle Hiring Task",
+  "description": "Weather Task",
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Manonandan/bewgle-hiring-task.git"
+    "url": "git+https://github.com/Manonandan/weather-task.git"
   },
   "author": "Manonandan S K",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Manonandan/bewgle-hiring-task/issues"
+    "url": "https://github.com/Manonandan/weather-task/issues"
   },
-  "homepage": "https://github.com/Manonandan/bewgle-hiring-task#readme",
+  "homepage": "https://github.com/Manonandan/weather-task#readme",
   "dependencies": {
     "mongoose": "^6.4.0"
   }

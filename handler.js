@@ -2,7 +2,7 @@
 const { mongoose } = require('mongoose');
 const { WeatherSchema } = require('./model/Weather')
 
-const mongoDbUrl = "mongodb+srv://admin:8dNj52JtVvwWspM@mycluster.kcpmypg.mongodb.net/bewgle-hiring-task?retryWrites=true&w=majority";
+const mongoDbUrl = "mongodb+srv://admin:8dNj52JtVvwWspM@mycluster.kcpmypg.mongodb.net/weather-task?retryWrites=true&w=majority";
 
 function connect() {
     return new Promise(resolve => {
